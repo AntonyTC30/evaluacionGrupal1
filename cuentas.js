@@ -3,11 +3,12 @@ cuentas = [
     { numeroCuenta: "02345211", cedula: "1281238233", nombre: "Felipe", apellido: "Caicedo", saldo: 0.0 }
 ]
 let esNuevo = false;
+
 cargar = function () {
     mostrarComponente("divCuentas");
     ocultarComponente("divMovimientos");
     ocultarComponente("divTransacciones");
-    mostrarCuentas ();
+    mostrarCuentas();
 }
 
 mostrarCuentas = function () {
