@@ -5,13 +5,11 @@ let movimientos=[
     {numeroCuenta:"02345211",monto:65.23,tipo:"C"},
     {numeroCuenta:"02345211",monto:12.0,tipo:"D"},
 ]
-let movimientosCuenta=[
-]
+let cuentaValidad= []
 cargar=function(){
     mostrarComponente("divMovimientos");
     ocultarComponente("divCuentas");
     ocultarComponente("divTransacciones");
-    mostrarMovimientos (); 
 }
 
 ejecutarBusqueda=function(){
@@ -28,13 +26,15 @@ filtrarMovimientos=function(numeroCuenta){
     console.log(">_ Movimientos:",movimientos)
     console.log(">_ Movimientos:",movimientos.length)
 
+
+
     for (let i = 0; i < movimientos.length; i++) {
         movimientosCuenta = movimientos[i];
-        if (movimientos[i].numeroCuenta == numeroCuenta) {
-            movimientosCuenta.push("adsa");
+        if (movimientosCuenta.numeroCuenta == numeroCuenta) {
+            cuentaValidad.push(movimientosCuenta);
         }
     }
-    mostrarMovimientos(movimientosCuenta); 
+    mostrarMovimientos(cuentaValidad); 
 }
 
 /*
@@ -63,6 +63,8 @@ mostrarMovimientos=function(misMovimientos){
     }
     contenidoTabla += "</table>"
     cmpTabla.innerHTML = contenidoTabla;
+    if (elementoMovimiento == "D"){
+    }
 }
 
 
