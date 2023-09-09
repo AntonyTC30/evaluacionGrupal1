@@ -8,6 +8,8 @@ let movimientos = [
 let cuentaValidad = [
 ]
 cargar = function () {
+let cuentaValidad= []
+cargar=function(){
     mostrarComponente("divMovimientos");
     ocultarComponente("divCuentas");
     ocultarComponente("divTransacciones");
