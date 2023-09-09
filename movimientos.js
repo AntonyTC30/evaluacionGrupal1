@@ -5,7 +5,7 @@ let movimientos = [
     { numeroCuenta: "02345211", monto: 65.23, tipo: "C" },
     { numeroCuenta: "02345211", monto: 12.0, tipo: "D" },
 ]
-let movimientosCuenta = [
+let cuentaValidad = [
 ]
 cargar = function () {
     mostrarComponente("divMovimientos");
@@ -30,11 +30,11 @@ filtrarMovimientos = function (numeroCuenta) {
 
     for (let i = 0; i < movimientos.length; i++) {
         movimientosCuenta = movimientos[i];
-        if (movimientos[i].numeroCuenta == numeroCuenta) {
-            movimientosCuenta.push();
+        if (movimientosCuenta.numeroCuenta == numeroCuenta) {
+            cuentaValidad.push(movimientosCuenta);
         }
     }
-    mostrarMovimientos(movimientosCuenta);
+    mostrarMovimientos(cuentaValidad);
 }
 
 /*
@@ -46,6 +46,7 @@ mostrarMovimientos = function (misMovimientos) {
     //Si ya pinta correctamente la tabla, hacer el siguiente cambio:
     //Si el tipo es D(DEBITO), mostrar el monto en negativo (multiplicar por -1)
     //Si el tipo es C(CREDITO), mostrar el monto en positivo (tal como está guardado)
+    let montoTipo;
     let cmpTabla = document.getElementById("tablaMovimientos");
     let contenidoTabla = "<table><tr>" +
         "<th>NUMERO DE CUENTA</th>" +
@@ -53,12 +54,17 @@ mostrarMovimientos = function (misMovimientos) {
         "<th>TIPO</th>" +
         "</tr>";
     let elementoMovimiento;
-    if()
+
     for (let i = 0; i < misMovimientos.length; i++) {
         elementoMovimiento = misMovimientos[i];
+        if (elementoMovimiento.tipo == "C") {
+            montoTipo = elementoMovimiento.monto * 1;
+        } else if (elementoMovimiento.tipo == "D") {
+            montoTipo = elementoMovimiento.monto * -1;
+        }
         contenidoTabla +=
             "<tr><td>" + elementoMovimiento.numeroCuenta + "</td>"
-            + "<td>" + elementoMovimiento.monto + "</td>"
+            + "<td>" + montoTipo + "</td>"
             + "<td>" + elementoMovimiento.tipo + "</td>"
             + "</tr>"
     }

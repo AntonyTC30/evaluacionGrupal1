@@ -1,9 +1,9 @@
-cuentas = [
+let cuentas = [
     { numeroCuenta: "02234567", cedula: "1714616123", nombre: "Juan", apellido: "Perez", saldo: 0.0 },
     { numeroCuenta: "02345211", cedula: "1281238233", nombre: "Felipe", apellido: "Caicedo", saldo: 0.0 }
 ]
 
-movimientos = [
+let movimientos = [
     { numeroCuenta: "02234567", monto: 10.24, tipo: "D" },
     { numeroCuenta: "02345211", monto: 45.90, tipo: "D" },
     { numeroCuenta: "02234567", monto: 65.23, tipo: "C" },
@@ -11,6 +11,8 @@ movimientos = [
     { numeroCuenta: "02345211", monto: 12.0, tipo: "D" },
 ]
 
+let cuentaValidad = [
+]
 
 let esNuevo = false;
 
@@ -22,6 +24,7 @@ cargar = function () {
     deshabilitarComponente("btnDepositar");
     deshabilitarComponente("btnRetirar");
     deshabilitarComponente("txtMonto");
+    mostrarMovimientos();
 }
 
 menuCuentas = function () {
@@ -145,4 +148,50 @@ ejecutarRetiro = function () {
     let monto = recuperarFloat("txtMonto");
     let cuenta = recuperarTexto("txtBusquedaCuentaTransacion")
     retirar(cuenta, monto);
+}
+
+ejecutarBusquedaMovimiento = function () {
+    let numeroCuenta = recuperarTexto("txtbusqueda");
+    filtrarMovimientos(numeroCuenta);
+}
+
+filtrarMovimientos = function (numeroCuenta) {
+    let movimientosCuenta = [];
+    console.log(">_ Movimientos:", movimientos)
+    console.log(">_ Movimientos:", movimientos.length)
+
+    for (let i = 0; i < movimientos.length; i++) {
+        movimientosCuenta = movimientos[i];
+        if (movimientosCuenta.numeroCuenta == numeroCuenta) {
+            cuentaValidad.push(movimientosCuenta);
+        }
+    }
+    mostrarMovimientos(cuentaValidad);
+}
+
+mostrarMovimientos = function (misMovimientos) {
+    let montoTipo;
+    let cmpTabla = document.getElementById("tablaMovimientos");
+    let contenidoTabla = "<table><tr>" +
+        "<th>NUMERO DE CUENTA</th>" +
+        "<th>MONTO</th>" +
+        "<th>TIPO</th>" +
+        "</tr>";
+    let elementoMovimiento;
+
+    for (let i = 0; i < misMovimientos.length; i++) {
+        elementoMovimiento = misMovimientos[i];
+        if (elementoMovimiento.tipo == "C") {
+            montoTipo = elementoMovimiento.monto * 1;
+        } else if (elementoMovimiento.tipo == "D") {
+            montoTipo = elementoMovimiento.monto * -1;
+        }
+        contenidoTabla +=
+            "<tr><td>" + elementoMovimiento.numeroCuenta + "</td>"
+            + "<td>" + montoTipo + "</td>"
+            + "<td>" + elementoMovimiento.tipo + "</td>"
+            + "</tr>"
+    }
+    contenidoTabla += "</table>"
+    cmpTabla.innerHTML = contenidoTabla;
 }
